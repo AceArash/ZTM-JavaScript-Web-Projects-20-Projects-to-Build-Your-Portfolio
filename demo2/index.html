@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calender</title>
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+    <div class="calendar">
+        <p id="monthName"></p>
+        <p id="dayName"></p>
+        <p id="dayNumber"></p>
+        <p id="year"></p>
+        <p id="hours"></p><span id="minutes"></span>
+        <div class="dots"></div>
+        <div class="dots"></div>
+    </div>
+    <script>
+        const lang = navigator.language;
+        let date = new Date();
+
+        let dayNumber = date.getDate();
+        let month = date.getMonth();
+        let dayName = date.toLocaleString(lang, {
+            weekday: 'long'
+        });
+        let monthName = date.toLocaleString(lang, {
+            month: 'long'
+        });
+        let year = date.getFullYear();
+        let hour = date.getHours();
+        let minutes = date.getMinutes();
+
+        document.getElementById('monthName').innerHTML = monthName;
+        document.getElementById('dayName').innerHTML = dayName;
+        document.getElementById('dayNumber').innerHTML = dayNumber;
+        document.getElementById('year').innerHTML = year;
+        document.getElementById('hours').innerHTML = hour;
+        document.getElementById('minutes').innerHTML = minutes;
+
+    </script>
+
+</body>
+
+</html>
