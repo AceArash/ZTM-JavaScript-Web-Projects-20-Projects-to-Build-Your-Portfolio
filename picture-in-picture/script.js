@@ -1,2 +1,31 @@
 // Work in Progress
-console.log("testing!"); //passing a string or a variable inside quotes''.
+
+const videoElement = document.getElementById("video");
+const button = document.getElementById("button");
+
+// Proompt to select media stream, pass to video element, then play
+async function selectedMediaStream() {
+  try {
+    const mediaStream = await navigator.mediaDevices.getDisplayMedia();
+    videoElement.srcObject = mediaStream;
+    videoElement.onloadedmetadata = () => {
+      videoElement.play();
+    };
+  } catch (error) {
+    //Catch Error Here
+    console.log("whoops, error here:", error);
+  }
+}
+
+button.addEventListener("click", async () => {
+  // Disable Button
+  button.disabled = true;
+  // Start Picture in Picture
+  await videoElement.requestPictureInPicture();
+
+  //Reset button
+  button.disabled = false;
+});
+
+// On Load
+selectedMediaStream();
