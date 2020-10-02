@@ -12,9 +12,9 @@ const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&coun
 `;
 
 // Helper Function to Set Attributes on DOM Elements
-function setAttibutes(element, attributes) {
+function setAttributes(element, attributes) {
   for (const key in attributes) {
-    element.setAttibute(key, attributes[key]);
+    element.setAttribute(key, attributes[key]);
   }
 }
 
@@ -27,7 +27,7 @@ function displayPhotos() {
     const item = document.createElement("a");
     // item.setAttribute("href", photo.links.html);
     // item.setAttribute("target", "_blank");
-    setAttibutes(item, {
+    setAttributes(item, {
       href: photo.links.html,
       target: "_blank",
     });
@@ -36,7 +36,7 @@ function displayPhotos() {
     // img.setAttribute("src", photo.urls.regular);
     // img.setAttribute("alt", photo.alt_description);
     // img.setAttribute("title", photo.alt_description);
-    setAttibutes(img, {
+    setAttributes(img, {
       src: photo.urls.regular,
       alt: photo.alt_description,
       title: photo.alt_description,
