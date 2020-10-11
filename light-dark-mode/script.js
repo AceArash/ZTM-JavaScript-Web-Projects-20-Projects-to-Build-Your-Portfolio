@@ -7,55 +7,38 @@ const image3 = document.getElementById('image3');
 const textBox = document.getElementById('text-box');
 
 
-// Dark or Light Images
-function imageMode(color){
-    
-    image1.src = `img/undraw_proud_coder_${color}.svg`;    
-    image1.src = `img/undraw_feeling_proud_${color}.svg`;
-    image1.src = `img/undraw_conceptual_idea_${color}.svg`;
+let toggleKey = false;
+let mode = [];
+
+// Toggle Mode Styles
+function toggleMode () {
+  toggleKey = !toggleKey;
+  if (toggleKey) {
+    mode = ['dark', 'rgb(0 0 0 / 50%)', 'rgb(255 255 255 / 50%)', 'fa-sun', 'fa-moon'];
+  } else {
+    mode = ['light', 'rgb(255 255 255 / 50%)', 'rgb(0 0 0 / 50%)',  'fa-moon', 'fa-sun',];
+  }
+  document.documentElement.setAttribute('data-theme', mode[0]);
+  localStorage.setItem('theme', mode[0]);
+  nav.style.backgroundColor = mode[1];
+  textBox.style.backgroundColor = mode[2];
+  toggleIcon.children[0].textContent =  mode[0] + ' Mode';
+  toggleIcon.children[1].classList.replace(mode[3], mode[4]);
+  image1.src = `img/undraw_proud_coder_${mode[0]}.svg`;
+  image2.src = `img/undraw_feeling_proud_${mode[0]}.svg`;
+  image3.src = `img/undraw_conceptual_idea_${mode[0]}.svg`;
 }
 
-// Dark Mode Styles
-function darkMode() {
-    nav.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    textBox.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-    toggleIcon.children[0].textContent = 'Dark Mode';
-    toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon');
-    imageMode('dark');
-}
+// Event Listener
+toggleSwitch.addEventListener('change', toggleMode);
 
-// Light Mode Styles
-function lightMode() {
-    nav.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-    textBox.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    toggleIcon.children[0].textContent = 'Light Mode';
-    toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
-    imageMode('light');
-}
-
-// Switch Theme Dynamically
-function switchTheme(event){
-    if(event.target.checked){
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-        darkMode();
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        
-        localStorage.setItem('theme', 'light');
-        lightMode();
-    }
-    console.log(event.target.checked);
-}
-// Event Listener 
-toggleSwitch.addEventListener('change', switchTheme);
-
-// Check Local Storage for Theme
+// Check Local Storage For Theme
 const currentTheme = localStorage.getItem('theme');
 if (currentTheme) {
-    document.documentElement.setAttribute('dark-theme', 'dark');
-    if (currentTheme === 'dark') {
-        toggleSwitch.checked = true;
-        darkMode();
-    }
+  document.documentElement.setAttribute('data-theme', currentTheme);
+
+  if (currentTheme === 'dark') {
+    toggleSwitch.checked = true;
+    toggleMode();
+  }
 }
